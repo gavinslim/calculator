@@ -1,0 +1,50 @@
+:root {
+    --primary-dark: #333;
+    --background-grey: #ededed;
+    --primary-font: 14px;
+}
+
+
+body {
+    font-family: Roboto, san-serif;
+    background-color: var(--background-grey);
+    color: var(--primary-dark);
+}
+
+.header {
+    display: flex;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 100px;
+    max-width: 1240px;
+    margin: auto;
+    font-size: var(--primary-font);
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding-bottom: 10px;
+    font-size: var(--primary-font);
+}
+
+.fa-github {
+    color: var(--primary-dark);
+    transition: all 0.5s ease;
+    font-size: 32px;
+}
+
+.fa-github:hover {
+    transform: scale(1.2) rotate(360deg);
+}
+
