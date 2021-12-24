@@ -34,9 +34,11 @@ body {
     font-size: var(--primary-font);
     width: var(--max-width);
     height: var(--max-height);
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 10px;
     gap: 10px;
+    border-radius: 20px;
+    background-color: white;
 }
 
 #top-screen {
@@ -46,6 +48,8 @@ body {
     background-color: white;
     font-size: var(--top-screen-font);
     text-align: right;
+    border-radius: 20px;
+    /* white-space: normal; */
 }
 
 #main-screen {
@@ -54,6 +58,8 @@ body {
     background-color: white;
     font-size: var(--main-screen-font);
     text-align: right;
+    border-radius: 20px;
+    /* white-space: normal; */
 }
 
 .keyboard {
@@ -61,6 +67,8 @@ body {
     height: var(--key-height);
     display: flex;
     border: 1px solid lightgray;
+    background-color: lightgray;
+    border-radius: 20px;
 }
 
 .digits-container {
@@ -69,7 +77,6 @@ body {
     grid-template-rows: repeat(5, calc(var(--key-height)/5));  
     justify-items: center;
     align-items: center;
-    background-color: lightgray;
 }
 
 .functions-container {
@@ -78,30 +85,34 @@ body {
     grid-template-rows: repeat(5, calc(var(--key-height)/5));
     justify-items: center;
     align-items: center;
-    background-color: lightgray;
 }
 
 .btn {
-    width: 90px;
-    height: 90px;
+    width: 85px;
+    height: 85px;
     border-radius: 50%;
     font: var(--primary-font);
     border: none;
+    transition: all 0.1sec ease;
 }
 
 .btn:active {
     opacity: 70%;
 }
 
-.digit {
-    background-color: var(--primary-dark);
-    color: white; 
+.btn:hover {
+    /* opacity: 70%; */
+    box-shadow: 0 0 10px var(--primary-dark);
 }
 
-.function {
+.dark {
+    background-color: var(--primary-dark);
+    color: white;
+}
+
+.purple {
     background-color: purple;
     color: white;
-    font: var(--primary-font);
 }
 
 .sum {
