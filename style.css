@@ -1,7 +1,15 @@
 :root {
     --primary-dark: #333;
     --background-grey: #ededed;
-    --primary-font: 14px;
+    --primary-font: 30px;
+    --top-screen-font: 70px;
+    --main-screen-font: 50px;
+    --footer-font: 14px;
+    --max-width: 400px;
+    --max-height: 800px;
+    --top-height: calc(var(--max-height)*0.25);
+    --main-height: calc(var(--max-height)*0.15);
+    --key-height: calc(var(--max-height)*0.6)
 }
 
 
@@ -11,20 +19,97 @@ body {
     color: var(--primary-dark);
 }
 
+/* Header */
 .header {
     display: flex;
+    justify-content: center;
 }
 
+/* Main */
 .main {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    gap: 100px;
-    max-width: 1240px;
     margin: auto;
     font-size: var(--primary-font);
+    width: var(--max-width);
+    height: var(--max-height);
+    border: 1px solid black;
+    padding: 10px;
+    gap: 10px;
 }
 
+#top-screen {
+    width: var(--max-width);
+    height: var(--top-height);
+    /* border: 1px solid lightgray; */
+    background-color: white;
+    font-size: var(--top-screen-font);
+    text-align: right;
+}
+
+#main-screen {
+    width: var(--max-width);
+    height: var(--main-height);
+    background-color: white;
+    font-size: var(--main-screen-font);
+    text-align: right;
+}
+
+.keyboard {
+    width: var(--max-width);
+    height: var(--key-height);
+    display: flex;
+    border: 1px solid lightgray;
+}
+
+.digits-container {
+    display: grid;
+    grid-template-columns: repeat(3, calc(var(--max-width)/4));
+    grid-template-rows: repeat(5, calc(var(--key-height)/5));  
+    justify-items: center;
+    align-items: center;
+    background-color: lightgray;
+}
+
+.functions-container {
+    display: grid;
+    grid-template-columns: repeat(1, calc(var(--max-width)/4));
+    grid-template-rows: repeat(5, calc(var(--key-height)/5));
+    justify-items: center;
+    align-items: center;
+    background-color: lightgray;
+}
+
+.btn {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    font: var(--primary-font);
+    border: none;
+}
+
+.btn:active {
+    opacity: 70%;
+}
+
+.digit {
+    background-color: var(--primary-dark);
+    color: white; 
+}
+
+.function {
+    background-color: purple;
+    color: white;
+    font: var(--primary-font);
+}
+
+.sum {
+    background-color: orange;
+    font: var(--primary-font);
+}
+
+/* Footer */
 .footer {
     position: absolute;
     bottom: 0;
@@ -35,7 +120,7 @@ body {
     gap: 10px;
     width: 100%;
     padding-bottom: 10px;
-    font-size: var(--primary-font);
+    font-size: var(--footer-font);
 }
 
 .fa-github {
