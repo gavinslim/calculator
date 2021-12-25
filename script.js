@@ -1,8 +1,11 @@
-var curr_string = "";
-var first_operand = "";
-var sec_operand = "";
+var display_str = "";   // Frontend display string
+var first_op = "";      // First operand
+var sec_op = "";        // Second operand
+var calc_str = "";      // Intermediate string for calculation
+var sum_val = "";       // Final value for sum
 
-let operator_pressed = true;
+let operator_pressed = false;
+let digit_pressed = false;
 
 var top_screen = document.getElementById('top-screen');
 var main_screen = document.getElementById('main-screen');
@@ -21,62 +24,86 @@ function operate(op, a, b) {
     if (op == "neg") {return neg(a);}
 }
 
-function update_curr_string(str) {
-    console.log(str);
+function calculate_sum() {
+    display_str.split(' ').forEach(element => {
+        console.log(element);
+    });
 }
 
 function display_digit() {
-    curr_string = curr_string.concat(this.innerHTML);
-    top_screen.innerHTML = curr_string;
-    operator_pressed = false;
+    display_str = display_str.concat(this.innerHTML);
+    top_screen.innerHTML = display_str;
+    
+    digit_pressed = true;
+    console.log("digit: " + digit_pressed);
 
     // Check for display overflow and adjust font size
-    if (top_screen.scrollWidth > top_screen.clientWidth) {
-        var font_size = window.getComputedStyle(top_screen, null).getPropertyValue('font-size');
-        top_screen.style.fontSize = (parseInt(font_size) * 0.7) + "px";
-    }
-    
+    adjust_display();    
 }
 
 // Operator functions
 function display_operator() {
     const selection = this.innerHTML;
     
-    // Clear entire top display
+    // Clear and reset
     if (selection == "C") {
-        curr_string = "";
-        top_screen.innerHTML = curr_string;  
-        
-        // Reset font-size
+        display_str = "";
+        top_screen.innerHTML = display_str;  
+        main_screen.innerHTML = display_str;
+        first_op = display_str;
+        sec_op = display_str;
+        operator_pressed = false;
+        digit_pressed = false;
         top_screen.style.fontSize = "70px";
         return;
     
-    // Delete last character. Consider white spaces for operators
+    // Delete (Consider white spaces for operators)
     } else if (selection == "del") {
-        curr_string = curr_string.slice(-1) == ' ' ? curr_string.slice(0, -3) : curr_string.slice(0, -1);
-        top_screen.innerHTML = curr_string;  
+        display_str = display_str.slice(-1) == ' ' ? display_str.slice(0, -3) : display_str.slice(0, -1);
+        top_screen.innerHTML = display_str;  
         return;
-    }
+    
+    // Sum
+    } else if (selection == "=") {
+        console.log("Operator: " + operator_pressed + " | " + "Digit: " + digit_pressed);
+        if (!operator_pressed) {
+            main_screen.innerHTML = display_str;
+        } else {
+            if (!digit_pressed) {return}
+            calculate_sum();
+        }
+        operator_pressed = false;
+        return;
+    } 
 
-    // Display operator in top display
+    if (!digit_pressed) {return}
+
+    // Rest of op
     if (!operator_pressed) {
-        const first_operand = curr_string;
-        curr_string = curr_string.concat(selection);
-        top_screen.innerHTML = curr_string;
+        
+        // If operator pressed for the first time, 
+        // save first operand
+        first_op = display_str;
+        display_str = display_str.concat(selection);
+        top_screen.innerHTML = display_str;
 
         operator_pressed = true;
+        digit_pressed = false;
+
+        console.log("operator: " + operator_pressed);
 
         // Check for display overflow and adjust font size
-        if (top_screen.scrollWidth > top_screen.clientWidth) {
-            var font_size = window.getComputedStyle(top_screen, null).getPropertyValue('font-size');
-            top_screen.style.fontSize = (parseInt(font_size) * 0.7) + "px";
-        }
-    }
+        adjust_display();
+    } 
 }
 
-function display_sum() {
-    // Split current string
-    console.log(curr_string.split(' '));
+// Adjust fontsize of main display to prevent overflow
+function adjust_display() {
+    // Check for display overflow and adjust font size
+    if (top_screen.scrollWidth > top_screen.clientWidth) {
+        var font_size = window.getComputedStyle(top_screen, null).getPropertyValue('font-size');
+        top_screen.style.fontSize = (parseInt(font_size) * 0.7) + "px";
+    }
 }
 
 // Init buttons
@@ -89,5 +116,3 @@ const operators = document.querySelectorAll('.function');
 operators.forEach(operator => {
     operator.addEventListener('click', display_operator, false);
 });
-
-const sum = document.querySelector('.sum').addEventListener('click', display_sum);

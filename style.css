@@ -55,7 +55,7 @@ body {
 #main-screen {
     width: var(--max-width);
     height: var(--main-height);
-    background-color: white;
+    background-color: lightgray;
     font-size: var(--main-screen-font);
     text-align: right;
     border-radius: 20px;
@@ -115,7 +115,7 @@ body {
     color: white;
 }
 
-.sum {
+.orange {
     background-color: orange;
     font: var(--primary-font);
 }
