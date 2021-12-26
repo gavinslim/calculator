@@ -8,10 +8,10 @@ var top_screen = document.getElementById('top-screen');
 var result_screen = document.getElementById('result-screen');
 
 var op_pressed = false;
-const op_array = new Set(['+', '-', '÷', 'x']);
+const op_array = new Set(['+', '-', '÷', 'x', '+/-']);
 
 
-function add(a, b) {return a - b;}
+function add(a, b) {return a + b;}
 function sub(a, b) {return a - b;}
 function mul(a, b) {return a * b;}
 function div(a, b) {return a / b;}
@@ -22,26 +22,38 @@ function operate(a, op, b) {
     if (op == '-') {return sub(a, b);}
     if (op == 'x') {return mul(a, b);}
     if (op == '÷') {return div(a, b);}
-    if (op == "neg") {return neg(a);}
+    if (op == '+/-') {
+        return neg(a);
+    }
 }
 
-function calculate_sum() {
-    const arr = display_str.split(' ');    
+// Recursive calculation 
+function calculate(arr) {
+    let operand = arr.find(element => op_array.has(element));
+    if (operand == undefined) {
+        return arr;
+    } 
 
-    const operand = arr.find(element => op_array.has(element));
-    // const index = arr.findIndex(element => element == operand);
+    // Calculate
     const index = arr.indexOf(operand);
-    const a = arr[index-1];
-    const b = arr[index+1];
+    const a = parseFloat(arr[index-1]);
+    const b = parseFloat(arr[index+1]);
+    let result = operate(a, operand, b);
 
-    // console.log('a: ' + a + ' | ' + 'b: ' + b + ' | ' + 'op: ' + operand);
-    
-    const result = operate(a, operand, b);
-    result_screen.innerHTML = result;
+    // console.log(a + ' ' + operand + ' ' + b + ' = ' + result);
 
-    // display_str.split(' ').forEach(element => {
-    //     console.log(element);
-    // });
+    // Remove operand combo
+    arr.splice(index-1, 3);
+    arr.splice(0, 0, result);
+
+    return calculate(arr);
+}
+
+function toggle(arr) {
+    let val = neg(parseFloat(arr[arr.length - 1]));
+    arr.splice(arr.length - 1, 1, val);
+    console.log(arr);
+    return arr;
 }
 
 function display_digit() {
@@ -50,7 +62,7 @@ function display_digit() {
     op_pressed = false;
 
     // Check for display overflow and adjust font size
-    adjust_display(); 
+    check_display(); 
 
 }
 
@@ -77,24 +89,35 @@ function display_operator() {
     // Sum
     } else if (selection == "=") {
         if (op_pressed) {return;}
-        calculate_sum();
+        let value = calculate(display_str.split(' '));
+        result_screen.innerHTML = value;
+
+    // 
+    } else if (selection == '+/-') {
+        display_str = toggle(display_str.split(' ')).join(" ");
+        top_screen.innerHTML = display_str;
 
     } else {
         if (op_pressed) {return;}
-        display_str = display_str.concat(selection);      
-        op_pressed = true;
-    }
 
-    top_screen.innerHTML = display_str;
-    adjust_display();
+        display_str = display_str.concat(selection);   
+        top_screen.innerHTML = display_str;   
+        op_pressed = true;
+
+        check_display();
+    }
 }
 
 // Adjust fontsize of main display to prevent overflow
-function adjust_display() {
+function check_display() {
+    var font_size = parseInt(window.getComputedStyle(top_screen, null).getPropertyValue('font-size'));
+    if (font_size < 35) {
+        return;
+    }
+
     // Check for display overflow and adjust font size
     if (top_screen.scrollWidth > top_screen.clientWidth) {
-        var font_size = window.getComputedStyle(top_screen, null).getPropertyValue('font-size');
-        top_screen.style.fontSize = (parseInt(font_size) * 0.7) + "px";
+        top_screen.style.fontSize = (font_size * 0.7) + "px";
     }
 }
 

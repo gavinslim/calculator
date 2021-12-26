@@ -7,11 +7,10 @@
     --footer-font: 14px;
     --max-width: 400px;
     --max-height: 800px;
-    --top-height: calc(var(--max-height)*0.25);
-    --main-height: calc(var(--max-height)*0.15);
-    --key-height: calc(var(--max-height)*0.6)
+    --top-height: calc(var(--max-height)*0.2);
+    --main-height: calc(var(--max-height)*0.2);
+    --key-height: calc(var(--max-height)*0.60)
 }
-
 
 body {
     font-family: Roboto, san-serif;
@@ -49,7 +48,6 @@ body {
     font-size: var(--top-screen-font);
     text-align: right;
     border-radius: 20px;
-    /* white-space: normal; */
 }
 
 #result-screen {
