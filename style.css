@@ -2,13 +2,13 @@
     --primary-dark: #333;
     --background-grey: #ededed;
     --primary-font: 30px;
-    --top-screen-font: 70px;
+    --top-fontsize: 60px;
     --main-screen-font: 50px;
     --footer-font: 14px;
     --max-width: 400px;
     --max-height: 800px;
-    --top-height: calc(var(--max-height)*0.2);
-    --main-height: calc(var(--max-height)*0.2);
+    --top-height: calc(var(--max-height)*0.25);
+    --main-height: calc(var(--max-height)*0.15);
     --key-height: calc(var(--max-height)*0.60)
 }
 
@@ -33,7 +33,6 @@ body {
     font-size: var(--primary-font);
     width: var(--max-width);
     height: var(--max-height);
-    /* border: 1px solid black; */
     padding: 10px;
     gap: 10px;
     border-radius: 20px;
@@ -43,9 +42,8 @@ body {
 #top-screen {
     width: var(--max-width);
     height: var(--top-height);
-    /* border: 1px solid lightgray; */
     background-color: white;
-    font-size: var(--top-screen-font);
+    font-size: var(--top-fontsize);
     text-align: right;
     border-radius: 20px;
 }
@@ -53,11 +51,12 @@ body {
 #result-screen {
     width: var(--max-width);
     height: var(--main-height);
-    /* background-color: lightgray; */
+    border-top: 1px solid lightgray;
     font-size: var(--main-screen-font);
-    text-align: right;
-    border-radius: 20px;
-    /* white-space: normal; */
+
+    display: flex;
+    justify-content: right;
+    align-items: center;
 }
 
 .keyboard {

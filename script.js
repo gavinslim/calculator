@@ -79,11 +79,21 @@ function display_operator() {
         sec_op = display_str;
         operator_pressed = false;
         digit_pressed = false;
-        top_screen.style.fontSize = "70px";
+
+        let docStyle = getComputedStyle(document.documentElement);
+        top_screen.style.fontSize = docStyle.getPropertyValue('--top-fontsize');
     
     // Delete (Consider white spaces for operators)
     } else if (selection == "del") {
+
+        // Delete negative number
+        if (display_str.slice(-2) < 0) {
+            display_str = display_str.slice(0, -1);
+        }
+
+        // Remove operator or last digit
         display_str = display_str.slice(-1) == ' ' ? display_str.slice(0, -3) : display_str.slice(0, -1);
+            
         top_screen.innerHTML = display_str;  
     
     // Sum
@@ -94,12 +104,12 @@ function display_operator() {
 
     // 
     } else if (selection == '+/-') {
+        if (op_pressed) {return;}
         display_str = toggle(display_str.split(' ')).join(" ");
         top_screen.innerHTML = display_str;
 
     } else {
         if (op_pressed) {return;}
-
         display_str = display_str.concat(selection);   
         top_screen.innerHTML = display_str;   
         op_pressed = true;
