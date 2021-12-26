@@ -8,6 +8,7 @@ var top_screen = document.getElementById('top-screen');
 var result_screen = document.getElementById('result-screen');
 
 var op_pressed = false;
+var dot_pressed = false;
 const op_array = new Set(['+', '-', '÷', 'x', '+/-']);
 
 
@@ -57,7 +58,16 @@ function toggle(arr) {
 }
 
 function display_digit() {
-    display_str = display_str.concat(this.innerHTML);
+    
+
+    const selection = this.innerHTML;
+
+    if (selection == '.') {
+        if (dot_pressed) {return;}
+        else {dot_pressed = true;}
+    }
+
+    display_str = display_str.concat(selection);
     top_screen.innerHTML = display_str;
     op_pressed = false;
 
@@ -69,7 +79,8 @@ function display_digit() {
 // Operator functions
 function display_operator() {
     const selection = this.innerHTML;
-
+    dot_pressed = false;
+    
     // Clear and reset
     if (selection == "C") {
         display_str = "";
@@ -78,7 +89,7 @@ function display_operator() {
         first_op = display_str;
         sec_op = display_str;
         operator_pressed = false;
-        digit_pressed = false;
+        dot_pressed = false;
 
         let docStyle = getComputedStyle(document.documentElement);
         top_screen.style.fontSize = docStyle.getPropertyValue('--top-fontsize');
