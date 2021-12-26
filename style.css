@@ -52,10 +52,10 @@ body {
     /* white-space: normal; */
 }
 
-#main-screen {
+#result-screen {
     width: var(--max-width);
     height: var(--main-height);
-    background-color: lightgray;
+    /* background-color: lightgray; */
     font-size: var(--main-screen-font);
     text-align: right;
     border-radius: 20px;
