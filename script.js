@@ -8,8 +8,8 @@ var top_screen = document.getElementById('top-screen');
 var result_screen = document.getElementById('result-screen');
 
 var op_pressed = false;
-var dot_pressed = false;
-const op_array = new Set(['+', '-', '÷', 'x', '+/-']);
+var decimal_pressed = false;
+const op_array = new Set(['+', '-', '÷', 'x', '+/-', '%']);
 
 
 function add(a, b) {return a + b;}
@@ -17,19 +17,21 @@ function sub(a, b) {return a - b;}
 function mul(a, b) {return a * b;}
 function div(a, b) {return a / b;}
 function neg(a) {return -1 * a;}
+function mod(a, b) {return a % b;}
 
 function operate(a, op, b) {
     if (op == '+') {return add(a, b);}
     if (op == '-') {return sub(a, b);}
     if (op == 'x') {return mul(a, b);}
     if (op == '÷') {return div(a, b);}
-    if (op == '+/-') {
-        return neg(a);
-    }
+    if (op == '+/-') {return neg(a);}
+    if (op == '%') {return mod(a, b);}
 }
 
 // Recursive calculation 
 function calculate(arr) {
+
+    // Find first operand and check if it exists in op_array
     let operand = arr.find(element => op_array.has(element));
     if (operand == undefined) {
         return arr;
@@ -41,7 +43,7 @@ function calculate(arr) {
     const b = parseFloat(arr[index+1]);
     let result = operate(a, operand, b);
 
-    // console.log(a + ' ' + operand + ' ' + b + ' = ' + result);
+    console.log(a + ' ' + operand + ' ' + b + ' = ' + result);
 
     // Remove operand combo
     arr.splice(index-1, 3);
@@ -53,18 +55,15 @@ function calculate(arr) {
 function toggle(arr) {
     let val = neg(parseFloat(arr[arr.length - 1]));
     arr.splice(arr.length - 1, 1, val);
-    console.log(arr);
     return arr;
 }
 
 function display_digit() {
-    
-
     const selection = this.innerHTML;
 
     if (selection == '.') {
-        if (dot_pressed) {return;}
-        else {dot_pressed = true;}
+        if (decimal_pressed) {return;}
+        else {decimal_pressed = true;}
     }
 
     display_str = display_str.concat(selection);
@@ -79,8 +78,10 @@ function display_digit() {
 // Operator functions
 function display_operator() {
     const selection = this.innerHTML;
-    dot_pressed = false;
-    
+    decimal_pressed = false;
+
+    if (top_screen.innerHTML == '') {return;}    
+
     // Clear and reset
     if (selection == "C") {
         display_str = "";
@@ -89,7 +90,7 @@ function display_operator() {
         first_op = display_str;
         sec_op = display_str;
         operator_pressed = false;
-        dot_pressed = false;
+        decimal_pressed = false;
 
         let docStyle = getComputedStyle(document.documentElement);
         top_screen.style.fontSize = docStyle.getPropertyValue('--top-fontsize');
@@ -110,8 +111,14 @@ function display_operator() {
     // Sum
     } else if (selection == "=") {
         if (op_pressed) {return;}
-        let value = calculate(display_str.split(' '));
-        result_screen.innerHTML = value;
+        let value = parseFloat(calculate(display_str.split(' ')))
+
+        // Check if value has decimal places
+        if (value % 1 != 0) {
+            result_screen.innerHTML = value.toFixed(5);
+        } else {
+            result_screen.innerHTML = value;
+        }
 
     // 
     } else if (selection == '+/-') {

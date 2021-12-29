@@ -2,14 +2,14 @@
     --primary-dark: #333;
     --background-grey: #ededed;
     --primary-font: 30px;
-    --top-fontsize: 60px;
+    --top-fontsize: 40px;
     --main-screen-font: 50px;
     --footer-font: 14px;
     --max-width: 400px;
-    --max-height: 800px;
-    --top-height: calc(var(--max-height)*0.25);
+    --max-height: 700px;
+    --top-height: calc(var(--max-height)*0.15);
     --main-height: calc(var(--max-height)*0.15);
-    --key-height: calc(var(--max-height)*0.60)
+    --key-height: calc(var(--max-height)*0.70)
 }
 
 body {
@@ -34,7 +34,7 @@ body {
     width: var(--max-width);
     height: var(--max-height);
     padding: 10px;
-    gap: 10px;
+    /* gap: 10px; */
     border-radius: 20px;
     background-color: white;
 }
@@ -44,14 +44,16 @@ body {
     height: var(--top-height);
     background-color: white;
     font-size: var(--top-fontsize);
-    text-align: right;
-    border-radius: 20px;
+
+    display: flex;
+    justify-content: right;
+    align-items: center;
 }
 
 #result-screen {
     width: var(--max-width);
     height: var(--main-height);
-    border-top: 1px solid lightgray;
+    /* border-top: 1px solid lightgray; */
     font-size: var(--main-screen-font);
 
     display: flex;
