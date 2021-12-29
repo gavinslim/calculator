@@ -9,7 +9,9 @@
     --max-height: 700px;
     --top-height: calc(var(--max-height)*0.15);
     --main-height: calc(var(--max-height)*0.15);
-    --key-height: calc(var(--max-height)*0.70)
+    --key-height: calc(var(--max-height)*0.65);
+    --top-width: calc(var(--max-width) - 10px);
+    --key-width: calc(var(--max-width) - 20px);
 }
 
 body {
@@ -34,45 +36,49 @@ body {
     width: var(--max-width);
     height: var(--max-height);
     padding: 10px;
-    /* gap: 10px; */
+    gap: 10px;
     border-radius: 20px;
-    background-color: white;
+    background-color: black;
+}
+
+#top {
+    border-radius: 10px;
+    /* background-color: white; */
+    width: var(--max-width);
+    height: calc(var(--top-height) + var(--main-height));
 }
 
 #top-screen {
-    width: var(--max-width);
+    width: var(--top-width);
     height: var(--top-height);
-    background-color: white;
     font-size: var(--top-fontsize);
-
-    display: flex;
-    justify-content: right;
-    align-items: center;
+    text-align: right;
+    background-color: grey;
 }
 
 #result-screen {
-    width: var(--max-width);
-    height: var(--main-height);
-    /* border-top: 1px solid lightgray; */
+    width: var(--top-width);
+    height: var(--top-height);
     font-size: var(--main-screen-font);
-
     display: flex;
     justify-content: right;
     align-items: center;
+    background-color: yellow;
 }
 
 .keyboard {
-    width: var(--max-width);
+    width: var(--key-width);
     height: var(--key-height);
     display: flex;
     border: 1px solid lightgray;
     background-color: lightgray;
-    border-radius: 20px;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .digits-container {
     display: grid;
-    grid-template-columns: repeat(3, calc(var(--max-width)/4));
+    grid-template-columns: repeat(3, calc(var(--key-width)/4));
     grid-template-rows: repeat(5, calc(var(--key-height)/5));  
     justify-items: center;
     align-items: center;
@@ -80,7 +86,7 @@ body {
 
 .functions-container {
     display: grid;
-    grid-template-columns: repeat(1, calc(var(--max-width)/4));
+    grid-template-columns: repeat(1, calc(var(--key-width)/4));
     grid-template-rows: repeat(5, calc(var(--key-height)/5));
     justify-items: center;
     align-items: center;
@@ -142,4 +148,3 @@ body {
 .fa-github:hover {
     transform: scale(1.2) rotate(360deg);
 }
-
