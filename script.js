@@ -149,6 +149,14 @@ function check_display() {
     }
 }
 
+// Register keydown events
+function keyboard(e) {
+    const button = document.querySelector(`.btn[data-key="${e.key}"]`);
+    if (!button) return;
+    button.click();
+    check_display();
+}
+
 // Init buttons
 const buttons = document.querySelectorAll('.digit');
 buttons.forEach(button => {
@@ -159,3 +167,5 @@ const operators = document.querySelectorAll('.function');
 operators.forEach(operator => {
     operator.addEventListener('click', display_operator, false);
 });
+
+window.addEventListener('keydown', keyboard);
