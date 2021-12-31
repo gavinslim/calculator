@@ -1,15 +1,29 @@
-# odin-calculator
+# The Odin Project: Calculator
 
-Features:
-- plus/minus 
-- delete negative values
-- adjust fontsize when it begins to overflow calcular width
-- pressing operator multiple times does not work
-- [todo] pressing dot button does not work multiple times 
-- [todo] add limit of 2 decimal places
-- resurive calculation method
+Implementation of the Calculator project from The Odin Project [curriculum](https://www.theodinproject.com/)
 
-Frontend:
-- Hover
-- Top and main screen
-- click feature
+[Live Demo](http://gavinslim.com/odin-calculator/) :point_left:
+
+**Features:**
+- Resurive calculation method
+- Operations: Multiplication, Addition, Subtraction, Division, Modulo, Negative toggling
+- Able to delete operators and operands
+- Adjust fontsize when it begins to overflow calcular width
+- Pressing operator multiple times does not work
+- Pressing dot button does not work multiple times 
+- Add decimal placement
+
+---
+
+**General Operation**
+
+![General gif](image/general_demo.gif)
+
+**Calculation using numbers with decimals**
+
+![Decimal gif](image/decimal_demo.gif)
+
+**Calculation using negative numbers**
+
+![Negative gif](image/negative_demo.gif)
+
